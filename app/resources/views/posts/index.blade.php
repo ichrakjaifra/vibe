@@ -50,6 +50,12 @@
                                 </button>
                             </form>
 
+                            <!-- Bouton Modifier (uniquement pour l'auteur du post) -->
+@if ($post->user_id == auth()->id())
+<a href="{{ route('posts.edit', $post->id) }}" class="text-indigo-600 hover:text-indigo-800 mr-4">
+    Modifier
+</a>
+@endif
                             <!-- Bouton Supprimer (uniquement pour l'auteur du post) -->
                             @if ($post->user_id == auth()->id())
                             <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
