@@ -8,18 +8,18 @@
     <!-- Barre de navigation -->
     <div class="bg-white dark:bg-gray-800 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
+            <!-- <div class="flex justify-between items-center py-4">
                 <div class="flex space-x-4">
                     <a href="{{ route('dashboard') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Accueil</a>
                     <a href="{{ route('posts.index') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Posts</a>
                     <a href="{{ route('friends.index') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Amis</a>
                 </div>
                 <div>
-                    <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200">
+                    <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 text-black rounded-lg hover:bg-indigo-700 transition duration-200">
                         Ajouter un post
                     </a>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
