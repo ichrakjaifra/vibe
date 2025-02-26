@@ -10,10 +10,10 @@ class PostController extends Controller
 {
     // Afficher tous les posts
     public function index()
-    {
-        $posts = Post::with('user', 'likes')->latest()->get();
-        return view('posts.index', compact('posts'));
-    }
+{
+    $posts = Post::with('user', 'likes', 'comments.user')->latest()->get();
+    return view('posts.index', compact('posts'));
+}
 
     // Afficher le formulaire de création de post
     public function create()
