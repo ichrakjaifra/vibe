@@ -5,6 +5,25 @@
         </h2>
     </x-slot>
 
+    <!-- Barre de navigation -->
+    <div class="bg-white dark:bg-gray-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex space-x-4">
+                    <a href="{{ route('dashboard') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Accueil</a>
+                    <a href="{{ route('posts.index') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Posts</a>
+                    <a href="{{ route('friends.index') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Amis</a>
+                </div>
+                <div>
+                    <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200">
+                        Ajouter un post
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
     <div class="py-12 bg-gray-50 dark:bg-gray-900 space-x-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Barre de recherche modernisée -->
@@ -18,7 +37,9 @@
                     <button type="submit" 
                             class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full transition duration-200 ease-in-out"
                     >
-                        
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
                     </button>
                 </div>
             </form>
@@ -57,7 +78,7 @@
                         </div>
                         
                         <div class="mt-6 flex justify-end">
-                            <a href="#" 
+                            <a href="" 
                                class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200"
                             >
                                 Voir le profil
@@ -67,8 +88,6 @@
                 </div>
                 @endforeach
             </div>
-
-            
         </div>
     </div>
 </x-app-layout>
