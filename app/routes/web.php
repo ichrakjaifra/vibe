@@ -64,10 +64,17 @@ Route::middleware('auth')->group(function () {
 
 // Routes pour les amis
 Route::middleware('auth')->group(function () {
-    Route::get('/friends', [FriendController::class, 'index'])->name('friends.index');
-    Route::post('/friends/{user}', [FriendController::class, 'store'])->name('friends.store');
-    Route::patch('/friends/{friend}', [FriendController::class, 'update'])->name('friends.update');
+  Route::get('/friends', [FriendController::class, 'index'])->name('friends.index');
+  Route::post('/friends/{user}', [FriendController::class, 'store'])->name('friends.store');
+  Route::patch('/friends/{friend}', [FriendController::class, 'update'])->name('friends.update');
 });
+
+// Route::middleware('auth:sanctum')->group(function () {
+//   Route::post('/send-friend-request/{id}', [FriendController::class, 'sendRequest']);
+//   Route::post('/accept-friend-request/{id}', [FriendController::class, 'acceptRequest']);
+//   Route::post('/reject-friend-request/{id}', [FriendController::class, 'rejectRequest']);
+//   Route::get('/friends', [FriendController::class, 'listFriends'])->name('friends.index'); // Ajout du nom "friends.index"
+// });
 
 // Routes pour les likes
 Route::middleware('auth')->group(function () {

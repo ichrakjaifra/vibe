@@ -5,28 +5,13 @@
         </h2>
     </x-slot>
 
-    <!-- Barre de navigation -->
     <div class="bg-white dark:bg-gray-800 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- <div class="flex justify-between items-center py-4">
-                <div class="flex space-x-4">
-                    <a href="{{ route('dashboard') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Accueil</a>
-                    <a href="{{ route('posts.index') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Posts</a>
-                    <a href="{{ route('friends.index') }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">Amis</a>
-                </div>
-                <div>
-                    <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 text-black rounded-lg hover:bg-indigo-700 transition duration-200">
-                        Ajouter un post
-                    </a>
-                </div>
-            </div> -->
         </div>
     </div>
 
-    <!-- Contenu principal -->
     <div class="py-12 bg-gray-50 dark:bg-gray-900 space-x-4">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Barre de recherche modernisée -->
             <form action="{{ route('dashboard') }}" method="GET" class="mb-8">
                 <div class="relative">
                     <input type="text" 
@@ -44,7 +29,6 @@
                 </div>
             </form>
 
-            <!-- Grille de cartes utilisateurs -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-4 gap-6">
                 @foreach ($users as $user)
                 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
@@ -77,12 +61,18 @@
                             </p>
                         </div>
                         
-                        <div class="mt-6 flex justify-end">
+                        <div class="mt-6 flex justify-between">
                             <a href="" 
                                class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200"
                             >
                                 Voir le profil
                             </a>
+                            <form action="{{ route('friends.store', $user->id) }}" method="POST">
+        @csrf
+        <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200">
+            Ajouter ami
+        </button>
+    </form>
                         </div>
                     </div>
                 </div>

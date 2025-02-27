@@ -11,10 +11,15 @@ class FriendController extends Controller
 {
     // Afficher la liste des amis et des demandes
     public function index()
-    {
-        $friends = Auth::user()->friends()->withPivot('status')->get();
-        return view('friends.index', compact('friends'));
-    }
+{
+    $friends = Auth::user()->acceptedFriends()->get();
+    $friendRequests = Auth::user()->friendRequests()->get();
+
+    // Récupérer les objets Friend pour les demandes d'amis
+    $friendRequests = Auth::user()->friendRequests()->with('friends')->get();
+
+    return view('friends.index', compact('friends', 'friendRequests'));
+}
 
     // Envoyer une demande d'ami
     public function store(User $user)
@@ -30,8 +35,8 @@ class FriendController extends Controller
 
     // Accepter ou refuser une demande d'ami
     public function update(Friend $friend, Request $request)
-    {
-        $friend->update(['status' => $request->status]);
-        return redirect()->back()->with('success', 'Demande d\'ami mise à jour.');
-    }
+{
+    $friend->update(['status' => $request->status]);
+    return redirect()->back()->with('success', 'Demande d\'ami mise à jour.');
+}
 }
