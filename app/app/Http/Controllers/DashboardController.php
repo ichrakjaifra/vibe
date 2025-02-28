@@ -20,11 +20,20 @@ class DashboardController extends Controller
 
 //     return view('dashboard', compact('users'));
 // }
-public function index()
+public function index(Request $request)
 {
+    // Récupérer le terme de recherche
+    $search = $request->input('search');
+
     // Récupérer tous les utilisateurs avec le rôle "user" (sauf l'utilisateur connecté)
     $users = User::where('id', '!=', Auth::id())
                  ->where('role', 'user') // Filtrer par rôle "user"
+                 ->when($search, function ($query, $search) {
+                     return $query->where(function ($q) use ($search) {
+                         $q->where('pseudo', 'like', "%{$search}%")
+                           ->orWhere('email', 'like', "%{$search}%");
+                     });
+                 })
                  ->get();
 
     // Récupérer les demandes d'amis envoyées par l'utilisateur connecté
@@ -36,6 +45,6 @@ public function index()
     // Récupérer les amis acceptés
     $acceptedFriends = Auth::user()->acceptedFriends()->pluck('friend_id');
 
-    return view('dashboard', compact('users', 'sentRequests', 'receivedRequests', 'acceptedFriends'));
+    return view('dashboard', compact('users', 'sentRequests', 'receivedRequests', 'acceptedFriends', 'search'));
 }
 }
