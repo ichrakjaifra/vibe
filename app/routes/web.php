@@ -91,6 +91,8 @@ Route::middleware('auth')->group(function () {
 // Route pour afficher le profil d'un utilisateur
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 
+Route::post('/likes/toggle', [LikeController::class, 'toggleLike'])->name('likes.toggle');
+
 require __DIR__.'/auth.php';
 
 

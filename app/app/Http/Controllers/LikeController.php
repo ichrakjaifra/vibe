@@ -8,18 +8,41 @@ use Illuminate\Support\Facades\Auth;
 
 class LikeController extends Controller
 {
-    // Ajouter un like à un post
-    public function store(Request $request)
+    // Ajouter ou supprimer un like
+    public function toggleLike(Request $request)
     {
         $request->validate([
             'post_id' => 'required|exists:posts,id',
         ]);
 
-        Like::create([
-            'user_id' => Auth::id(),
-            'post_id' => $request->post_id,
-        ]);
+        $user = Auth::user();
+        $postId = $request->post_id;
 
-        return redirect()->back()->with('success', 'Post liké.');
+        // Vérifier si l'utilisateur a déjà liké ce post
+        $like = Like::where('user_id', $user->id)
+                    ->where('post_id', $postId)
+                    ->first();
+
+        if ($like) {
+            // Supprimer le like si l'utilisateur a déjà liké
+            $like->delete();
+            $message = 'Like retiré.';
+        } else {
+            // Ajouter un like si l'utilisateur n'a pas encore liké
+            Like::create([
+                'user_id' => $user->id,
+                'post_id' => $postId,
+            ]);
+            $message = 'Post liké.';
+        }
+
+        // Retourner le nombre total de likes pour ce post
+        $likesCount = Like::where('post_id', $postId)->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => $message,
+            'likes_count' => $likesCount,
+        ]);
     }
 }

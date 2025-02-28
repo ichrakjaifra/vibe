@@ -39,14 +39,14 @@
                             <!-- Boutons d'actions -->
                             <div class="flex items-center justify-between">
                                 <!-- Bouton Like -->
-                                <form action="{{ route('likes.store') }}" method="POST">
+                                <form action="{{ route('likes.toggle') }}" method="POST" class="like-form" data-post-id="{{ $post->id }}">
                                     @csrf
                                     <input type="hidden" name="post_id" value="{{ $post->id }}">
                                     <button type="submit" class="flex items-center text-gray-600 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400">
                                         <svg class="w-5 h-5 mr-2 {{ $post->likes->contains('user_id', auth()->id()) ? 'text-red-500' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
                                         </svg>
-                                        {{ $post->likes_count }}
+                                        <span class="likes-count">{{ $post->likes->count() }}</span>
                                     </button>
                                 </form>
 
@@ -97,4 +97,48 @@
             </div>
         </div>
     </div>
+
+    <!-- Script JavaScript pour gérer les likes -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const likeForms = document.querySelectorAll('.like-form');
+
+            likeForms.forEach(form => {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const postId = form.getAttribute('data-post-id');
+                    const likeButton = form.querySelector('button');
+                    const likesCount = form.querySelector('.likes-count');
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            post_id: postId
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Mettre à jour le nombre de likes
+                            likesCount.textContent = data.likes_count;
+
+                            // Changer la couleur du bouton like
+                            const svg = likeButton.querySelector('svg');
+                            if (data.message === 'Post liké.') {
+                                svg.classList.add('text-red-500');
+                            } else {
+                                svg.classList.remove('text-red-500');
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Erreur:', error));
+                });
+            });
+        });
+    </script>
 </x-app-layout>
