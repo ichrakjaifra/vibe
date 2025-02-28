@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-indigo-900 dark:text-indigo-200 leading-tight">
             {{ __('Créer un post') }}
         </h2>
     </x-slot>
@@ -19,7 +19,7 @@
                         <input type="file" id="image" name="image" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100">
                     </div>
                     <div class="flex justify-end">
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-black rounded-lg hover:bg-indigo-700 transition duration-200">
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200">
                             Publier
                         </button>
                     </div>

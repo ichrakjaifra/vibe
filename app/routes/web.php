@@ -63,10 +63,12 @@ Route::middleware('auth')->group(function () {
 
 
 // Routes pour les amis
+// Routes pour les amis
 Route::middleware('auth')->group(function () {
   Route::get('/friends', [FriendController::class, 'index'])->name('friends.index');
   Route::post('/friends/{user}', [FriendController::class, 'store'])->name('friends.store');
   Route::patch('/friends/{friend}', [FriendController::class, 'update'])->name('friends.update');
+  Route::delete('/friends/{friend}', [FriendController::class, 'destroy'])->name('friends.destroy'); // Nouvelle route
 });
 
 // Route::middleware('auth:sanctum')->group(function () {

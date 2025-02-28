@@ -58,10 +58,10 @@ class User extends Authenticatable
 
   // Relation pour les amis
   public function friends()
-  {
-      return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
-                  ->withPivot('status');
-  }
+{
+    return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+                ->withPivot('status');
+}
 
   // Relation pour les demandes d'amis reçues
   public function friendRequests()
@@ -78,5 +78,11 @@ class User extends Authenticatable
                   ->withPivot('status')
                   ->wherePivot('status', 'accepted');
   }
+
+  public function friendsOf()
+{
+    return $this->belongsToMany(User::class, 'friends', 'friend_id', 'user_id')
+                ->withPivot('status');
+}
   
 }

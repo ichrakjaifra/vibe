@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="font-semibold text-xl text-indigo-900 dark:text-indigo-200 leading-tight">
             {{ __('Posts') }}
         </h2>
     </x-slot>
@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Bouton pour créer un post -->
             <div class="mb-8">
-                <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 text-black rounded-lg hover:bg-indigo-700 transition duration-200">
+                <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200">
                     Créer un post
                 </a>
             </div>
@@ -73,7 +73,7 @@
                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                 <div class="flex items-center">
                     <textarea name="content" rows="1" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-100" placeholder="Ajouter un commentaire..."></textarea>
-                    <button type="submit" class="ml-2 px-4 py-2 bg-indigo-600 text-black rounded-lg hover:bg-indigo-700 transition duration-200">
+                    <button type="submit" class="ml-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-200">
                         Envoyer
                     </button>
                 </div>

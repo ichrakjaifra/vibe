@@ -62,18 +62,54 @@
                         </div>
                         
                         <div class="mt-6 flex justify-between">
-                            <a href="" 
-                               class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200"
-                            >
-                                Voir le profil
-                            </a>
-                            <form action="{{ route('friends.store', $user->id) }}" method="POST">
+    <a href="" 
+       class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200">
+        Voir le profil
+    </a>
+
+    @if ($acceptedFriends->contains($user->id))
+        <form action="{{ route('friends.destroy', $user->id) }}" method="POST" class="inline">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+                Unfollow ami
+            </button>
+        </form>
+    @elseif ($sentRequests->contains($user->id))
+        <button class="inline-flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg" disabled>
+            Demande envoyée
+        </button>
+    @elseif ($receivedRequests->contains($user->id))
+    @php
+        // Récupérer l'objet Friend correspondant à la demande d'ami
+        $friendRequest = Auth::user()->friendRequests()->where('user_id', $user->id)->first();
+    @endphp
+
+    <form action="{{ route('friends.update', $friendRequest->pivot->id) }}" method="POST" class="inline">
         @csrf
-        <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200">
-            Ajouter ami
+        @method('PATCH')
+        <input type="hidden" name="status" value="accepted">
+        <button type="submit" class="inline-flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition duration-200">
+            Accepter
         </button>
     </form>
-                        </div>
+    <form action="{{ route('friends.update', $friendRequest->pivot->id) }}" method="POST" class="inline">
+        @csrf
+        @method('PATCH')
+        <input type="hidden" name="status" value="rejected">
+        <button type="submit" class="inline-flex items-center px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+            Refuser
+        </button>
+    </form>
+    @else
+        <form action="{{ route('friends.store', $user->id) }}" method="POST">
+            @csrf
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200">
+                Ajouter ami
+            </button>
+        </form>
+    @endif
+</div>
                     </div>
                 </div>
                 @endforeach
