@@ -62,7 +62,7 @@
                         </div>
                         
                         <div class="mt-6 flex justify-between">
-    <a href="" 
+    <a href="{{ route('profile.show', $user->id) }}" 
        class="inline-flex items-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded-lg hover:bg-indigo-100 dark:hover:bg-indigo-800 transition duration-200">
         Voir le profil
     </a>

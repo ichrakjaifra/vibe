@@ -88,6 +88,9 @@ Route::middleware('auth')->group(function () {
   Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 });
 
+// Route pour afficher le profil d'un utilisateur
+Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
 require __DIR__.'/auth.php';
 
 
