@@ -78,6 +78,14 @@ class User extends Authenticatable
                   ->withPivot('status')
                   ->wherePivot('status', 'accepted');
   }
+  
+//   public function acceptedFriends()
+// {
+//     return $this->belongsToMany(User::class, 'friends', 'user_id', 'friend_id')
+//                 ->withPivot('status')
+//                 ->wherePivot('status', 'accepted')
+//                 ->select('users.id'); // Spécifiez explicitement la colonne `id` de la table `users`
+// }
 
   public function friendsOf()
 {

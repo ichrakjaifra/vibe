@@ -9,9 +9,28 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     // Afficher tous les posts
-    public function index()
+//     public function index()
+// {
+//     $posts = Post::with('user', 'likes', 'comments.user')->latest()->get();
+//     return view('posts.index', compact('posts'));
+// }
+public function index()
 {
-    $posts = Post::with('user', 'likes', 'comments.user')->latest()->get();
+    // Récupérer l'utilisateur connecté
+    $user = Auth::user();
+
+    // Récupérer les IDs des amis de l'utilisateur connecté
+    $friendIds = $user->acceptedFriends()->pluck('users.id');
+
+    // Ajouter l'ID de l'utilisateur connecté à la liste des IDs
+    $friendIds[] = $user->id;
+
+    // Récupérer les posts de l'utilisateur connecté et de ses amis
+    $posts = Post::with('user', 'likes', 'comments.user')
+                ->whereIn('user_id', $friendIds)
+                ->latest()
+                ->get();
+
     return view('posts.index', compact('posts'));
 }
 
