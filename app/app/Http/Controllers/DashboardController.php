@@ -22,8 +22,10 @@ class DashboardController extends Controller
 // }
 public function index()
 {
-    // Récupérer tous les utilisateurs (sauf l'utilisateur connecté)
-    $users = User::where('id', '!=', Auth::id())->get();
+    // Récupérer tous les utilisateurs avec le rôle "user" (sauf l'utilisateur connecté)
+    $users = User::where('id', '!=', Auth::id())
+                 ->where('role', 'user') // Filtrer par rôle "user"
+                 ->get();
 
     // Récupérer les demandes d'amis envoyées par l'utilisateur connecté
     $sentRequests = Auth::user()->friends()->where('friends.status', 'pending')->pluck('friend_id');
